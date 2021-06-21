@@ -1,0 +1,24 @@
+/* user_detail.css */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#modify {position: absolute; right:20px; top:90px; padding:7px 10px;}
+body {padding-top: 100px;}
+.content_wrap {width: 800px; border: 1px solid #000; margin:0 auto; padding:20px; position: relative;}
+.content_wrap * {font-family: 'NEXON Lv1 Gothic OTF';}
+.userInfo {overflow: hidden;}
+.userInfo > div {float: left;}
+.profile_img { width: 200px; margin-right: 15px; }
+.profile_img img {vertical-align: middle;}
+.profile_img button {width: 100%; padding:10px 0; background-color: #555; color: #fff; border: 0; border-radius: 0 0 3px 3px;}
+.item_label, .item_content {display: inline-block;}
+.item_label {font-weight: bold; margin-right: 5px; margin-left: 10px;}
+.profile_info > div {margin-bottom: 15px; font-size: 18px; margin-top: 3px;}
+.item_label:first-child {margin-left: 0;}
+.user_level {display: inline-block;width: 23px;height: 23px;vertical-align: middle; font-size: 12px; line-height: 25px;
+text-align: center; color: #fff; background-color: #333; border-radius: 50%;}
+.profile_info > textarea {resize: none; width: 100%; height: 120px; width:579px; outline:none;}
+.profile_info {width:calc(100% - 215px);}

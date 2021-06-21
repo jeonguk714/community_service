@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greenart.mapper.UserMapper">
+    <select id="selectUserCntById" resultType="java.lang.Integer">
+        SELECT COUNT(*) from user_info WHERE ui_id=#{userid}
+    </select>
+    <insert id="insertUser">
+        INSERT INTO user_info(
+            ui_id, ui_pwd, ui_name, ui_email, ui_user_type, ui_user_grade, ui_blog, ui_profile_img, ui_introduce, ui_ip
+        )
+        VALUES (
+            #{ui_id}, #{ui_pwd}, #{ui_name}, #{ui_email}, 3, 1, #{ui_blog}, #{ui_profile_img}, #{ui_introduce}, #{ui_ip}
+        )
+    </insert>
+    <select id="loginUser" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM user_info WHERE ui_id=#{id} AND ui_pwd=#{pwd}
+    </select>
+
+    <select id="selectUserById" resultType="com.greenart.vo.UserVO">
+        SELECT ui_seq, ui_id, ui_name, ui_email, ui_user_type, ui_user_grade, ui_blog, ui_profile_img, ui_introduce
+        FROM user_info
+        WHERE ui_id=#{id}
+    </select>
+
+    <select id="selectUserBySeq" resultType="com.greenart.vo.UserVO">
+        SELECT ui_seq, ui_id, ui_name, ui_email, ui_user_type, ui_user_grade, ui_blog, ui_profile_img, ui_introduce
+        FROM user_info
+        WHERE ui_seq=#{seq}
+    </select>
+
+    <select id="selectUserPostCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM post_info WHERE pi_owner=#{seq}
+    </select>
+
+    <select id="selectUserGoodBadCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM
+        (
+            (
+                SELECT * FROM post_info WHERE pi_owner=#{seq}
+            ) a
+            INNER JOIN
+            (
+                SELECT * FROM post_good_bad WHERE pgb_good_bad=#{good_bad}
+            ) b
+            ON a.pi_seq = b.pgb_post_seq
+        )
+    </select>
+     <update id="updateUserInfo">
+    	UPDATE user_info
+		SET
+			<if test="confirm_pwd != '' and confirm_pwd != null">
+				ui_pwd=#{confirm_pwd},
+			</if>
+			ui_name=#{ui_name},
+			ui_email=#{ui_email},
+			ui_blog=#{ui_blog},
+			ui_profile_img=#{ui_profile_img},
+			ui_introduce=#{ui_introduce}
+		WHERE
+			ui_seq=#{ui_seq}
+    </update>
+</mapper>

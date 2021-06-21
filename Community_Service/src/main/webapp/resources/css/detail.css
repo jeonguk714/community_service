@@ -1,0 +1,65 @@
+/* detail.css */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal; font-style: normal;
+}
+body { padding-top: 100px;}
+.content_wrap { width: 1100px; margin:0 auto;}
+.content_wrap * { font-family: 'NEXON Lv1 Gothic OTF';}
+.content_wrap h1 { font-size: 22px; font-weight: bold; border-bottom: 1px solid #aaa; padding-bottom: 10px;}
+.title_area { overflow: hidden; padding:10px 5px; border-bottom: 1px solid #ccc;}
+.title_area span {margin: 5px;}
+.title_area span i {margin-right: 3px;}
+#post_like {color: #3996f6;}
+#post_dislike {color: #ff6e5f;}
+.title_left { float: left;}
+.title_right { float: right;}
+.post_body {padding:30px; border-bottom: 1px solid #ccc; background-color: #f6f6f6; margin-bottom: 20px;}
+.comment_area i {margin-right: 3px;}
+#total_comments {font-weight: bold;}
+.comment_area > p { padding-bottom:20px; border-bottom: 1px solid #ccc; padding-left: 10px;}
+.comment {padding: 20px 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc;}
+.comment .likes {float: right;}
+.comment p {margin-top: 10px;}
+.comment span {margin-right: 10px;}
+.comment span:first-child {font-weight: bold;}
+.comment span:nth-child(2) {font-size: 12px; color: #999;}
+.comment button {border: 0; background-color: transparent; cursor:pointer}
+.comment button:hover {text-decoration: underline;}
+.comment #like_btn {color: #3996f6;}
+.comment #dislike_btn {color: #ff6e5f;}
+.comment_input {overflow: hidden;}
+.comment_input > * {float: left;}
+.comment_input textarea {
+    width: calc(100% - 60px); outline: 0; height: 60px; resize: none; box-sizing: border-box;
+    border: 1px solid #ccc; border-radius: 0; border-right: 0;
+}
+
+#comment_input_btn {width: 60px; height: 60px; box-sizing: border-box; border-radius: 0;
+    border: 1px solid #555; background-color: #555; color: #fff; font-size: 16px;
+    cursor: pointer;
+}
+#comment_input_btn:hover {border-color: #000; background-color: #000;}
+#more_btn {width: 100%; height: 50px; border: 0; background-color: #f3f3f3; font-size: 16px; font-weight: bold; cursor:pointer; outline:none;}
+.comment_input {
+    margin-top: 20px;
+}
+.comment_input > h1 {font-size: 18px; margin-bottom: 10px; border-bottom: 0; padding-bottom: 0;}
+body {padding-bottom: 50px;}
+
+.post_control {text-align: right; margin-bottom: 10px;}
+.post_control a {
+    display: inline-block; color: #fff; background-color: #555; 
+    border-radius: 3px; padding:7px 15px; text-decoration: none; font-size: 14px;
+}
+.post_control a:hover {
+    background-color: #000; 
+}
+.likes_area { text-align: center; margin-top: 30px;}
+.likes_area button { padding:7px 15px; border: 0; border-radius: 3px; cursor: pointer; }
+.likes_area button i { margin-right: 10px;}
+#post_like_btn {background-color: #3996f6; color: #fff;}
+#post_like_btn:hover {background-color: #047ef8;}
+#post_dislike_btn {background-color: #ff6e5f; color: #fff;}
+#post_dislike_btn:hover {background-color: #f8311b;}

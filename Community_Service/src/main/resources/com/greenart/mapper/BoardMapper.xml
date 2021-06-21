@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greenart.mapper.BoardMapper">
+    <select id="getCategoryList" resultType="com.greenart.vo.CategoryVO">
+        SELECT * FROM board_info;
+    </select>
+    <select id="getPostList" resultType="com.greenart.vo.PostVO">
+        SELECT a.*, b.ui_name FROM 
+        post_info a 
+        INNER JOIN
+        user_info b
+        ON a.pi_owner = b.ui_seq
+        WHERE pi_board_seq=#{board}
+        <if test="type == 'title'">
+            AND pi_title LIKE #{keyword}
+        </if>
+        <if test="type == 'content'">
+            AND pi_content LIKE #{keyword}
+        </if>
+        <if test="type == 'author'">
+            AND ui_name LIKE #{keyword}
+        </if>
+        ORDER BY pi_seq DESC
+        LIMIT 15 OFFSET #{offset}
+    </select>
+    <select id="getPostBySeq" resultType="com.greenart.vo.PostVO">
+        SELECT * FROM post_info WHERE pi_seq=#{no} 
+    </select>
+    <insert id="insertComment">
+        INSERT INTO comment_info(ci_pi_seq, ci_ui_seq, ci_content)
+        VALUES(#{ci_pi_seq}, #{ci_ui_seq}, #{ci_content})
+    </insert>
+    <select id="selectComment" resultType="com.greenart.vo.CommentVO">
+        SELECT a.*, b.ui_name FROM comment_info a INNER JOIN user_info b
+        ON a.ci_ui_seq = b.ui_seq
+        WHERE ci_pi_seq=#{board_seq}
+        LIMIT 10 OFFSET #{offset}
+    </select>
+    <select id="selectCommentCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM comment_info a INNER JOIN user_info b
+        ON a.ci_ui_seq = b.ui_seq
+        WHERE ci_pi_seq=#{board_seq}
+    </select>
+    <update id="updatePostCount">
+        UPDATE post_info SET pi_count = pi_count + 1 WHERE pi_seq=#{seq}
+    </update>
+    <insert id="insertPost">
+        INSERT INTO post_info(pi_owner, pi_title, pi_content, pi_board_seq, pi_ip)
+        VALUES(#{user_seq}, #{post_title}, #{post_content}, #{board_seq}, #{post_ip})
+    </insert>
+    <delete id="deletePost">
+        DELETE FROM post_info WHERE pi_seq=#{seq};
+    </delete>
+    <update id="updatePost">
+        UPDATE post_info SET pi_title=#{pi_title}, pi_content=#{pi_content}, pi_mod_dt=NOW() WHERE pi_seq=#{pi_seq}
+    </update>
+
+    <select id="getBoardPostCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) from 
+        post_info a 
+        INNER JOIN
+        user_info b
+        ON a.pi_owner = b.ui_seq
+        WHERE pi_board_seq=#{board_seq}
+        <if test="type == 'title'">
+            AND pi_title LIKE #{keyword}
+        </if>
+        <if test="type == 'content'">
+            AND pi_content LIKE #{keyword}
+        </if>
+        <if test="type == 'author'">
+            AND ui_name LIKE #{keyword}
+        </if>
+    </select>
+
+    <insert id="insertPostGoodBad">
+        INSERT INTO post_good_bad(pgb_post_seq, pgb_user_seq, pgb_good_bad)
+        VALUES(#{post_seq}, #{user_seq}, #{good_bad})
+    </insert>
+
+    <select id="selectPostGoodBad" resultType="com.greenart.vo.GoodBadVO">
+        SELECT 
+            pgb_post_seq AS post_seq,
+            pgb_user_seq AS user_seq,
+            pgb_good_bad AS good_bad 
+        FROM post_good_bad WHERE pgb_post_seq=#{post_seq} AND pgb_user_seq=#{user_seq}
+    </select>
+
+    <update id="updatePostGoodBad">
+        UPDATE post_good_bad SET pgb_good_bad=#{good_bad} WHERE pgb_user_seq=#{user_seq} AND pgb_post_seq=#{post_seq}
+    </update>
+    <select id="selectPostLikesCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM post_good_bad WHERE pgb_post_seq=#{seq} AND pgb_good_bad=0
+        UNION ALL
+        SELECT COUNT(*) FROM post_good_bad WHERE pgb_post_seq=#{seq} AND pgb_good_bad=1
+    </select>
+
+    <insert id="insertCommentGoodBad">
+        INSERT INTO comment_good_bad(cgb_com_seq, cgb_user_seq, cgb_good_bad)
+        VALUES(#{post_seq}, #{user_seq}, #{good_bad})
+    </insert>
+    <select id="selectCommentGoodBad" resultType="com.greenart.vo.GoodBadVO">
+        SELECT 
+            cgb_com_seq AS post_seq,
+            cgb_user_seq AS user_seq,
+            cgb_good_bad AS good_bad 
+        FROM comment_good_bad WHERE cgb_com_seq=#{post_seq} AND cgb_user_seq=#{user_seq}
+    </select>
+    <update id="updateCommentGoodBad">
+        UPDATE comment_good_bad SET cgb_good_bad=#{good_bad} WHERE cgb_user_seq=#{user_seq} AND cgb_com_seq=#{post_seq}
+    </update>
+    <select id="selectCommentLikesCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM comment_good_bad WHERE cgb_com_seq=#{seq} AND cgb_good_bad=0
+        UNION ALL
+        SELECT COUNT(*) FROM comment_good_bad WHERE cgb_com_seq=#{seq} AND cgb_good_bad=1
+    </select>
+
+    <delete id="deleteComment">
+        DELETE FROM comment_info WHERE ci_seq=#{seq}
+    </delete>
+    <select id="selectPostByUserId" resultType="com.greenart.vo.PostVO">
+    	SELECT a.bi_name, b.* FROM 
+		board_info a INNER JOIN post_info b ON a.bi_seq=b.pi_board_seq
+		WHERE b.pi_owner=#{user_seq}
+		ORDER BY B.pi_reg_dt DESC
+		LIMIT 10 OFFSET 0
+    </select>
+   
+</mapper>

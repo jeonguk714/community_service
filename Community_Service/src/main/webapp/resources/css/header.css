@@ -1,0 +1,39 @@
+/* header.css */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+header {
+    background-color: #333; position: fixed; height: 46px;
+    width: 100%; left: 0; top: 0; z-index: 99;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+.loginbox {
+    position: absolute; right: 20px; top: 10px;
+}
+.loginbox * {font-family: 'NEXON Lv1 Gothic OTF'; color: #fff;}
+#gnb * {font-family: 'NEXON Lv1 Gothic OTF'; color: #fff;}
+.loginbox a {text-decoration: none; font-size: 12px; display: inline-block;
+    border: 1px solid #fff; padding:5px; border-radius: 3px;
+}
+.loginbox a:hover {
+    background-color: #fff; color: #333;
+}
+#gnb a {text-decoration: none;}
+#gnb > ul > li {float: left;}
+#gnb > ul > li > a {display: inline-block; padding:15px 20px;}
+#gnb > ul > li > ul > li > a {display: inline-block; width: 100%; padding:10px 0;
+text-align: center;} 
+#gnb ul {background-color: #333;}
+header > a {float: left; display: inline-block; margin: 7px; margin-left: 20px;}
+#gnb {float: left; margin-left: 20px;}
+#gnb > ul > li > ul {overflow: hidden; height: 0;}
+#gnb > ul > li:hover > ul {height: auto;}
+#username {border: 0;}
+#username:hover {text-decoration: underline; background-color: transparent; color: #fff;}
+.grade {display: inline-block; font-size: 12px; width: 22px; height: 22px;
+    border-radius: 50%; text-align: center; line-height: 22px;
+    background-color: #fff; color: #333;
+}
